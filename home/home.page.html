@@ -1,22 +1,21 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      G00472897
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-   
-  </ion-header>
 
-  <div id="container">
-    <strong>Recipe Finder</strong>
-  </div>
+  <ion-searchbar placeholder="Enter ingredients" [(ngModel)]="query"></ion-searchbar>
 
-  <ion-searchbar placeholder="Search"></ion-searchbar>
+  <ion-button expand="block" (click)="searchRecipes()">SEARCH</ion-button>
 
-  <app-recipes></app-recipes>
+  <ion-list>
+  <ion-item *ngFor="let r of recipes">
+    <ion-label>{{ r.title }}</ion-label>
+  </ion-item>
+  </ion-list>
 
 </ion-content>
