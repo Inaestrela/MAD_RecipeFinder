@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
+import { HttpOptions } from '@capacitor/core';
+import { MyHttpService } from '../services/my-http';
+import { MyDataService } from '../services/my-data';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { IonButton } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 import { IonHeader,
-  IonList,
-  IonItem,
   IonCard,
   IonCardHeader,
   IonCardTitle,
@@ -9,14 +14,7 @@ import { IonHeader,
   IonToolbar, 
   IonTitle, 
   IonContent,
-  IonLabel,
   IonSearchbar } from '@ionic/angular/standalone';
-import { HttpOptions } from '@capacitor/core';
-import { MyHttpService } from '../services/my-http';
-import { MyDataService } from '../services/my-data';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonButton } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
@@ -29,12 +27,9 @@ import { IonButton } from '@ionic/angular/standalone';
     IonCardContent,
     FormsModule,
     IonHeader,
-    IonList,
-    IonItem,
     IonToolbar, 
     IonTitle, 
     IonContent,
-    IonLabel,
     IonSearchbar,
     IonButton],
 })
@@ -45,7 +40,8 @@ export class HomePage {
 
   constructor(
     private http: MyHttpService,
-    private mds: MyDataService
+    private mds: MyDataService,
+    private router: Router
   ) {}
 
   async ionViewDidEnter() {
@@ -73,8 +69,9 @@ export class HomePage {
     await this.mds.set('recipes', this.recipes);
   }
 
+  //Redirecting details button to recipe details
   goToCard(id:number) {
-      console.log('Clicked recipe id:', id);
+      this.router.navigate(['/recipe-details', id]);
     }
     
 }
