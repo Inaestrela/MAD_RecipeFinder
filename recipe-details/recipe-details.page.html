@@ -27,8 +27,14 @@
     </ion-card-header>
 
     <ion-card-content>
-      {{ ing.measures?.metric?.amount }} {{ ing.measures?.metric?.unitLong }}
-    </ion-card-content>
+  <ng-container *ngIf="unit === 'metric'">
+    {{ ing.measures.metric.amount }} {{ ing.measures.metric.unitLong }}
+  </ng-container>
+
+  <ng-container *ngIf="unit === 'imperial'">
+    {{ ing.measures.us.amount }} {{ ing.measures.us.unitLong }}
+  </ng-container>
+</ion-card-content>
   </ion-card>
 
 <!-- Instructions -->

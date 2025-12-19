@@ -5,6 +5,7 @@ import { HttpOptions } from '@capacitor/core';
 import { MyHttpService } from '../services/my-http';
 import { ActivatedRoute } from '@angular/router';
 import {RouterLink } from '@angular/router';
+import { MyDataService } from '../services/my-data';
 import { IonContent, 
   IonHeader, 
   IonTitle, 
@@ -16,7 +17,6 @@ import { IonContent,
   IonButton,
   IonCard,
   IonCardHeader,
-  IonCardSubtitle,
   IonCardContent,
   IonCardTitle } from '@ionic/angular/standalone';
 
@@ -38,7 +38,6 @@ import { IonContent,
     RouterLink,
     IonCard,
     IonCardHeader,
-    IonCardSubtitle,
     IonCardContent,
     IonCardTitle]
 })
@@ -47,11 +46,12 @@ apiKey = '70759a4f7911402abcc53d3c51d3b759';
 recipe: any = null;
 ingredients: any[]=[];
 steps:any[]=[];
+unit = 'metric'; 
 
-constructor( private route: ActivatedRoute, private http:MyHttpService) {}
+constructor( private route: ActivatedRoute, private http:MyHttpService, private mds: MyDataService) {}
 async ionViewDidEnter(){
-
-  const id = this.route.snapshot.paramMap.get('id');
+    this.unit = (await this.mds.get('unit')) ;
+    const id = this.route.snapshot.paramMap.get('id');
     if (!id) return;
     const options: HttpOptions = {
       url: `https://api.spoonacular.com/recipes/${id}/information`,
