@@ -4,8 +4,8 @@ import { MyHttpService } from '../services/my-http';
 import { MyDataService } from '../services/my-data';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
 import { IonHeader,
   IonCard,
   IonCardHeader,
@@ -14,7 +14,10 @@ import { IonHeader,
   IonToolbar, 
   IonTitle, 
   IonContent,
-  IonSearchbar } from '@ionic/angular/standalone';
+  IonSearchbar,
+  IonButtons,
+  IonButton,
+  IonIcon } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-home',
@@ -31,7 +34,10 @@ import { IonHeader,
     IonTitle, 
     IonContent,
     IonSearchbar,
-    IonButton],
+    IonButton,
+    IonButtons,
+    IonIcon,
+    RouterLink],
 })
 export class HomePage {
   recipes: any[] = [];
@@ -44,17 +50,19 @@ export class HomePage {
     private router: Router
   ) {}
 
+  //load saved recipes from storage
   async ionViewDidEnter() {
     const saved = await this.mds.get('recipes');
     if (saved) this.recipes = saved;
   }
 
+  //search button method
   async searchRecipes() {
     const q = this.query.trim();
     if (!q) {this.recipes =[]; return;
     }
 
-
+    //request to Spoonacular for search
     const options: HttpOptions = {
       url: 'https://api.spoonacular.com/recipes/complexSearch',
       params: {
@@ -63,7 +71,8 @@ export class HomePage {
         number: '12'
       }
     };
-
+    
+    //storing what was searched
     const data = await this.http.get(options);
     this.recipes = data?.results ??[];
     await this.mds.set('recipes', this.recipes);
