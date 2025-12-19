@@ -2,6 +2,10 @@ import { Component } from '@angular/core';
 import { IonHeader,
   IonList,
   IonItem,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
   IonToolbar, 
   IonTitle, 
   IonContent,
@@ -19,6 +23,10 @@ import { IonButton } from '@ionic/angular/standalone';
   templateUrl: 'home.page.html',
   standalone: true,
   imports: [CommonModule,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
     FormsModule,
     IonHeader,
     IonList,
@@ -33,7 +41,7 @@ import { IonButton } from '@ionic/angular/standalone';
 export class HomePage {
   recipes: any[] = [];
   query = '';
-  apiKey = '21947b3dd50482168e163cbad4b630b4581d0f7d';
+  apiKey = '70759a4f7911402abcc53d3c51d3b759';
 
   constructor(
     private http: MyHttpService,
@@ -50,6 +58,7 @@ export class HomePage {
     if (!q) {this.recipes =[]; return;
     }
 
+
     const options: HttpOptions = {
       url: 'https://api.spoonacular.com/recipes/complexSearch',
       params: {
@@ -60,8 +69,12 @@ export class HomePage {
     };
 
     const data = await this.http.get(options);
-    this.recipes = data?.results ?? [];
-
+    this.recipes = data?.results ??[];
     await this.mds.set('recipes', this.recipes);
   }
+
+  goToCard(id:number) {
+      console.log('Clicked recipe id:', id);
+    }
+    
 }
