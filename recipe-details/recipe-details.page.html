@@ -1,26 +1,53 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Recipes Details</ion-title>
+    <ion-title> {{ recipe?.title }}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="false">
 
- <ion-list>
-   <ion-list-header>
-    <ion-label>Ingredients</ion-label>
-  </ion-list-header>
-  <ion-item>
-    <ion-label>foo1</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>food2</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>food3</ion-label>
-  </ion-item>
-</ion-list>
+<!-- Main image -->
+  <img
+    *ngIf="recipe?.image"
+    [src]="recipe.image"
+    [alt]="recipe.title"
+    style="width: 100%; height: auto; border-radius: 8px;"
+  />
 
-<ion-button [routerLink]="['/home']">back</ion-button>
+<!-- Ingredients -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Ingredients</ion-label>
+    </ion-list-header>
+  </ion-list>
+
+  <ion-card *ngFor="let ing of ingredients">
+    <ion-card-header>
+      <ion-card-title>{{ ing.original }}</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ ing.measures?.metric?.amount }} {{ ing.measures?.metric?.unitLong }}
+    </ion-card-content>
+  </ion-card>
+
+<!-- Instructions -->
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Instructions</ion-label>
+    </ion-list-header>
+
+     <ion-item *ngIf="steps.length === 0 && recipe?.instructions">
+      <ion-label [innerHTML]="recipe.instructions"></ion-label>
+    </ion-item>
+
+    <!-- If nothing found -->
+    <ion-item *ngIf="steps.length === 0 && !recipe?.instructions">
+      <ion-label>No instructions found.</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" [routerLink]="['/home']">Back</ion-button>
+
 
 </ion-content>

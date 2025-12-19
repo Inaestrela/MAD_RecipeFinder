@@ -1,17 +1,46 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonList, IonListHeader, IonItem, IonLabel, IonButton } from '@ionic/angular/standalone';
 import { HttpOptions } from '@capacitor/core';
 import { MyHttpService } from '../services/my-http';
 import { ActivatedRoute } from '@angular/router';
 import {RouterLink } from '@angular/router';
+import { IonContent, 
+  IonHeader, 
+  IonTitle, 
+  IonToolbar, 
+  IonList, 
+  IonListHeader, 
+  IonItem, 
+  IonLabel, 
+  IonButton,
+  IonCard,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardContent,
+  IonCardTitle } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.page.html',
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonList, IonListHeader, IonItem, IonLabel, IonButton, RouterLink]
+  imports: [IonContent, 
+    IonHeader, 
+    IonTitle, 
+    IonToolbar, 
+    CommonModule, 
+    FormsModule, 
+    IonList, 
+    IonListHeader, 
+    IonItem, 
+    IonLabel, 
+    IonButton, 
+    RouterLink,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonCardContent,
+    IonCardTitle]
 })
 export class RecipeDetailsPage {
 apiKey = '70759a4f7911402abcc53d3c51d3b759';
