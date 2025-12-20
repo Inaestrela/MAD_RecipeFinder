@@ -5,9 +5,21 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">favorites</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <!-- Favorites cards -->
+  <ion-card *ngFor="let r of favorites">
+    <img [src]="r.image" [alt]="r.tittle"/>
+    
+      
+        <ion-card-header>
+          <ion-card-title>{{r.title}}</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button size="small" (click)="goToCard(r.id)">DETAILS</ion-button>
+        </ion-card-content>
+  </ion-card>
+  
+  <!-- Back button -->
+   <ion-button expand="block" [routerLink]="['/home']">Back</ion-button>
+
 </ion-content>
