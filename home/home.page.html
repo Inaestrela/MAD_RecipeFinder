@@ -1,14 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
 
-    <!-- Stundet ID -->
+    <!-- My student ID -->
     <ion-title>
       G00472897
     </ion-title>
 
     <ion-buttons slot="end">
       <!-- Favorites -->
-      <ion-button >
+      <ion-button routerLink="/favorites">
         <ion-icon name="heart"></ion-icon>
       </ion-button>
       <!-- Settings -->
@@ -20,7 +20,7 @@
   </ion-toolbar>
 </ion-header>
 
-<!-- Search results -->
+<!-- Search tool -->
 <ion-content [fullscreen]="true">
   <ion-searchbar placeholder="Enter ingredients" [(ngModel)]="query"></ion-searchbar>
 

@@ -11,12 +11,16 @@ export const routes: Routes = [
     pathMatch: 'full',
   },
   {
-    path: 'recipes',
-    loadComponent: () => import('./recipes/recipes.page').then( m => m.RecipesPage)
+    path: 'settings',
+    loadComponent: () => import('./settings/settings.page').then( m => m.SettingsPage)
   },
   {
     path: 'recipe-details/:id',
     loadComponent: () => import('./recipe-details/recipe-details.page').then( m => m.RecipeDetailsPage)
+  },
+  {
+    path: 'favorites',
+    loadComponent: () => import('./favorites/favorites.page').then( m => m.FavoritesPage)
   }
 
 ];
