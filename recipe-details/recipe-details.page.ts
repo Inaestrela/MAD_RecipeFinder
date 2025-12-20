@@ -18,7 +18,8 @@ import { IonContent,
   IonCard,
   IonCardHeader,
   IonCardContent,
-  IonCardTitle } from '@ionic/angular/standalone';
+  IonCardTitle,
+  IonIcon } from '@ionic/angular/standalone';
 
 @Component({
   selector: 'app-recipe-details',
@@ -39,14 +40,16 @@ import { IonContent,
     IonCard,
     IonCardHeader,
     IonCardContent,
-    IonCardTitle]
+    IonCardTitle,
+    IonIcon]
 })
 export class RecipeDetailsPage {
 apiKey = '70759a4f7911402abcc53d3c51d3b759';
 recipe: any = null;
 ingredients: any[]=[];
 steps:any[]=[];
-unit = 'metric'; 
+unit = 'metric'; //unit default
+isFavorite = false; //favorite default
 
 constructor( private route: ActivatedRoute, private http:MyHttpService, private mds: MyDataService) {}
 async ionViewDidEnter(){
@@ -60,9 +63,32 @@ async ionViewDidEnter(){
 
     const data = await this.http.get(options);
     this.recipe = data;
+    
+    //section regarding favorite button
+    const favs = (await this.mds.get('favorites'));
+    this.isFavorite = favs.includes(this.recipe?.id);
+    //
+
     this.ingredients = data?.extendedIngredients ?? [];
     this.steps = data?.analyzedInstructions?.[0]?.step ?? [];
     console.log('details data', data);
+
+}
+
+//favorite button toggle
+async toggleFavorite(){
+  if (!this.recipe?.id) return;
+  const favs: number[] = (await this.mds.get('favorites')) || [];
+
+  if (favs.includes(this.recipe.id)) {
+    const updated = favs.filter(x => x!== this.recipe.id);
+    await this.mds.set('favorites', updated);
+    this.isFavorite = false;
+  } else {
+    favs.push(this.recipe.id);
+    await this.mds.set('favorites', favs);
+    this.isFavorite = true;
+  }
 
 }
 

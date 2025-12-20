@@ -6,7 +6,7 @@
 
 <ion-content [fullscreen]="false">
 
-<!-- Main image -->
+<!-- Main Image -->
   <img
     *ngIf="recipe?.image"
     [src]="recipe.image"
@@ -26,6 +26,7 @@
       <ion-card-title>{{ ing.original }}</ion-card-title>
     </ion-card-header>
 
+    <!-- Metrics -->
     <ion-card-content>
   <ng-container *ngIf="unit === 'metric'">
     {{ ing.measures.metric.amount }} {{ ing.measures.metric.unitLong }}
@@ -53,7 +54,14 @@
     </ion-item>
   </ion-list>
 
-  <ion-button expand="block" [routerLink]="['/home']">Back</ion-button>
+  <!-- Favorite button -->
+   <ion-button expand="block" (click)="toggleFavorite()">
+    <ion-icon [name]="isFavorite ? 'heart' : 'heart-outline'" style="margin-right: 8px;"> </ion-icon>
+    {{ isFavorite ? 'Remove from Favorites' : 'Add to Favorites'}}
+   </ion-button>
+   
+  <!-- Back button -->
+   <ion-button expand="block" [routerLink]="['/home']">Back</ion-button>
 
 
 </ion-content>
