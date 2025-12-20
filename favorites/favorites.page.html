@@ -8,7 +8,7 @@
 
   <!-- Favorites cards -->
   <ion-card *ngFor="let r of favorites">
-    <img [src]="r.image" [alt]="r.tittle"/>
+    <img [src]="r.image" [alt]="r.title"/>
     
       
         <ion-card-header>
@@ -18,8 +18,8 @@
           <ion-button size="small" (click)="goToCard(r.id)">DETAILS</ion-button>
         </ion-card-content>
   </ion-card>
-  
+
   <!-- Back button -->
-   <ion-button expand="block" [routerLink]="['/home']">Back</ion-button>
+   <ion-button expand="block" [routerLink]="['/home']">Back to Home</ion-button>
 
 </ion-content>

@@ -65,8 +65,8 @@ async ionViewDidEnter(){
     this.recipe = data;
     
     //section regarding favorite button
-    const favs = (await this.mds.get('favorites'));
-    this.isFavorite = favs.includes(this.recipe?.id);
+    const favs: any[] = (await this.mds.get('favorites'));
+    this.isFavorite = favs.some(f => f.id === this.recipe?.id);
     //
 
     this.ingredients = data?.extendedIngredients ?? [];
@@ -78,14 +78,21 @@ async ionViewDidEnter(){
 //favorite button toggle
 async toggleFavorite(){
   if (!this.recipe?.id) return;
-  const favs: number[] = (await this.mds.get('favorites')) || [];
+  const favs: any[] = (await this.mds.get('favorites')) || [];
+  const exists = favs.some(f => f.id === this.recipe.id);
 
-  if (favs.includes(this.recipe.id)) {
-    const updated = favs.filter(x => x!== this.recipe.id);
+  if (exists) {
+    const updated = favs.filter(f => f.id!== this.recipe.id);
     await this.mds.set('favorites', updated);
     this.isFavorite = false;
+    //storing info that needs to be display in the favorite page
   } else {
-    favs.push(this.recipe.id);
+    const fav = {
+      id: this.recipe.id,
+      title: this.recipe.title,
+      image: this.recipe.image
+    };
+    favs.push(fav);
     await this.mds.set('favorites', favs);
     this.isFavorite = true;
   }
